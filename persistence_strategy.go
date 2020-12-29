@@ -338,7 +338,7 @@ func (ps PersistenceStrategy) createWhereClause(matcher eventstore.MetadataMatch
 			default:
 				values = append(values, match.Value)
 
-				wheres = append(wheres, fmt.Sprintf(`JSON_UNQUOTE(metadata->>"$.%s" %s`, match.Field, expression(("?"))))
+				wheres = append(wheres, fmt.Sprintf(`JSON_UNQUOTE(metadata->>"$.%s") %s`, match.Field, expression(("?"))))
 			}
 		}
 

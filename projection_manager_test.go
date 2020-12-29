@@ -259,7 +259,10 @@ func Test_MysqlProjector(t *testing.T) {
 		})
 
 		projector := eventstore.NewProjector("project_all", es, pm)
-		defer projector.Delete(ctx, false)
+		defer func() {
+			es.DeleteStream(ctx, "foo-aggregate-stream")
+			projector.Delete(ctx, false)
+		}()
 
 		projector.
 			Init(func() interface{} {
